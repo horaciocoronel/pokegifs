@@ -6,9 +6,9 @@ class PokemonController < ApplicationController
     puts body["name"] # should be "pikachu"
     @pokemon = body
 
-    res = HTTParty.get("https://api.giphy.com/v1/gifs/search?api_key=#{ENV["GIPHY_KEY"]}&q=#{@pokemon["name"]}&rating=g")
+    res = HTTParty.get("https://api.giphy.com/v1/gifs/random?api_key=#{ENV["GIPHY_KEY"]}&tag=#{@pokemon["name"]}&rating=g")
     body = JSON.parse(res.body)
-    gif_url = body["data"][0]["url"]
+    gif_url = body["data"]["url"]
     render json: {
       "id": "#{@pokemon["id"]}",
       "name": "#{@pokemon["name"]}",
